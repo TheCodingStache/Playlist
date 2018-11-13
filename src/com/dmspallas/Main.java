@@ -3,8 +3,9 @@ import java.net.BindException;
 import java.util.*;
 
 public class Main {
-    private static ArrayList<Album> albums = new ArrayList<>();
+    private static List<Album> albums = new ArrayList<>();
     public static void main(String args[]) {
+
         Album album = new Album("Kamikaze", "Eminem");
         album.addSong("Kill shot", 3.45);
         album.addSong("The Ringer", 5.37);
@@ -14,7 +15,7 @@ public class Main {
 
         album = new Album("Rap God", "Eminem");
         album.addSong("track 1", 3.42);
-        album.addSong("track 2", 4.477);
+        album.addSong("track 2", 4.47);
         album.addSong("track 3", 6.42);
         album.addSong("track 4", 7.42);
         album.addSong("track 5", 1.42);
@@ -22,8 +23,7 @@ public class Main {
         album.addSong("track 7", 3.42);
         album.addSong("track 8", 9.42);
         albums.add(album);
-
-        LinkedList<Song> playlist = new LinkedList<>();
+        List<Song> playlist = new Vector<>( );
         albums.get(0).addToPlaylist("RUN", playlist);
         albums.get(0).addToPlaylist("Hannibal", playlist);
         albums.get(0).addToPlaylist("Greatest", playlist); //does not exist
@@ -32,13 +32,13 @@ public class Main {
         albums.get(1).addToPlaylist(8,playlist);
         albums.get(1).addToPlaylist(24,playlist);
 
-        printMenu();
+
+
 
         play(playlist);
 
-
     }
-    private static void play(LinkedList<Song> playlist){
+    private static void play(List<Song> playlist){
         Scanner scanner = new Scanner(System.in);
         boolean quit = false;
         boolean forward = true;
@@ -49,6 +49,7 @@ public class Main {
             return;
         }else{
             System.out.println("now playing " +listIterator.next().toString());
+            printMenu();
         }
 
         while(!quit){
@@ -72,6 +73,7 @@ public class Main {
                         System.out.println("we have reached the end of the playlist" );
                         forward = false;
                     }
+                    break;
                 case 2:
                     if(forward){
                         if(listIterator.hasPrevious()){
@@ -113,7 +115,7 @@ public class Main {
                         if(listIterator.hasNext()){
                             System.out.println("now playing " + listIterator.next());
                         }else if(listIterator.hasPrevious()){
-                            System.out.println("now playing" + listIterator.previous());
+                            System.out.println("now playing " + listIterator.previous());
                         }
                     }
                     break;
@@ -127,10 +129,10 @@ public class Main {
                 "2-- to play previous song\n" +
                 "3-- to replay current song\n" +
                 "4-- list songs in playlist\n"+
-                "5-- print available actions"+
+                "5-- print available actions\n"+
                 "6-- delete current song on playlist");
     }
-    private static void printList(LinkedList<Song> playlist){
+    private static void printList(List<Song> playlist){
         Iterator<Song> iterator = playlist.iterator();
         System.out.println("===================");
         while(iterator.hasNext()){
